@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.AccessControl;
@@ -54,7 +55,7 @@ namespace PracticeProblem
             //head.next.next = new ListNode(3);
             //head.next.next.next = new ListNode(4);
             //head.next.next.next.next = new ListNode(5);
-            //ListNode middle = MiddleNode(head);
+            //ListNode middle = MiddleNodeAnswer(head);
             //Console.WriteLine("Middle node value: " + middle.val);
             // Output: Middle node value: 3
             #endregion
@@ -66,7 +67,7 @@ namespace PracticeProblem
             #region LengthOfLongestSubstring (Sliding window dynamic range)
             //Output: 2
             //Console.WriteLine(LengthOfLongestSubstringAnswer("aaaabaaa"));
-            //Console.WriteLine(LengthOfLongestSubstringAnswer("abba")); 
+            //Console.WriteLine(LengthOfLongestSubstringAnswer("abba"));
 
             #endregion
 
@@ -78,6 +79,7 @@ namespace PracticeProblem
             #region VALID PALINDROME (Using Opposite Direction Two pointer)
             //Output: True
             //Console.WriteLine(IsPalindromeAnswer("A man, a plan, a canal: Panama"));
+            //Console.WriteLine(IsPalindromeAnswer("Don't nod"));
             //Output: False
             //Console.WriteLine(IsPalindromeAnswer("race a car"));
             #endregion
@@ -170,23 +172,26 @@ namespace PracticeProblem
 
             int sr = 1, sc = 1, newColor = 2;
 
-            //int[][] result = FloodFillAnswer(image, sr, sc, newColor);
+            int[][] result = FloodFillAnswer(image, sr, sc, newColor);
 
-            // Print result
-            //Console.WriteLine("Flood Fill Result:");
-            //for (int i = 0; i < result.Length; i++)
-            //{
-            //    for (int j = 0; j < result[i].Length; j++)
-            //    {
-            //        Console.Write(result[i][j] + " ");
-            //    }
-            //    Console.WriteLine();
-            //}
+            //Print result
+            Console.WriteLine("Flood Fill Result:");
+            for (int i = 0; i < result.Length; i++)
+            {
+                for (int j = 0; j < result[i].Length; j++)
+                {
+                    Console.Write(result[i][j] + " ");
+                }
+                Console.WriteLine();
+            }
             #endregion
             #endregion
 
             #region DFS
-            TreeNode root = new TreeNode() {
+
+            #region TREE
+            TreeNode root = new TreeNode()
+            {
                 val = 20,
                 left = new TreeNode()
                 {
@@ -214,11 +219,73 @@ namespace PracticeProblem
                 }
             };
 
-            TreeNode node = TreeDFSAnswer(root, 29);
-            Console.WriteLine(node.val);
+            //TreeNode node = TreeDFSAnswer(root, 29);
+            //Console.WriteLine(node.val);
+            #endregion
+            #region GRAPH
+            HashSet<int> visited = new HashSet<int>();
+            Dictionary<int, List<int>> graphDFS = new Dictionary<int, List<int>>()
+            {
+                {1, new List<int>{2}},
+                {2, new List<int>{3, 4}},
+                {3, new List<int>{5}},
+                {4, new List<int>{6}},
+                {5, new List<int>{6}},
+                {6, new List<int>{3}}
+            };
+
+            //GraphDFSAnswer(1, visited, graphDFS);
+            //Console.WriteLine(string.Join(", ", visited));
+            #endregion
+            #region MAXIMUM DEPTH OF A BINARY TREE
+            TreeNode rootDFS = new TreeNode()
+            {
+                val = 3,
+                left = new TreeNode()
+                {
+                    val = 9
+                },
+                right = new TreeNode()
+                {
+                    val = 20,
+                    left = new TreeNode()
+                    {
+                        val = 15
+                    },
+                    right = new TreeNode()
+                    {
+                        val = 7
+                    }
+                }
+            };
+            //Console.WriteLine(MaxDepthAnswer(rootDFS));
+            #endregion
+            #region NUMBER OF ISLANDS
+            char[][] grid = new char[][]
+             {
+                new char[] {'1','1','1','1','0'},
+                new char[] {'1','1','0','1','0'},
+                new char[] {'1','1','0','0','0'},
+                new char[] {'0','0','0','0','0'}
+             };
+
+            //Console.WriteLine(NumIslandsAnswer(grid));
             #endregion
             #endregion
 
+            #region BACKTRACKING
+            #region WORD SEARCH
+            //Output: true
+            char[][] board = new char[][]
+            {
+               new char[] { 'A', 'B', 'C', 'E' },
+               new char[] { 'S', 'F', 'C', 'S' },
+               new char[] { 'A', 'D', 'E', 'E' }
+            };
+            //Console.WriteLine(ExistAnswer(board, "ABCCED"));
+            #endregion
+            #endregion
+            #endregion
 
             Console.ReadLine();
         }
@@ -283,7 +350,8 @@ namespace PracticeProblem
 
         public static int countingValleysAnswer(int steps, string path)
         {
-            int count = 0, altitude = 0;
+            int altitude = 0;
+            int count = 0;
 
             for (int i = 0; i < steps; i++)
             {
@@ -296,7 +364,7 @@ namespace PracticeProblem
 
                     altitude++;
                 }
-                else if (path[i] == 'D')
+                else
                 {
                     altitude--;
                 }
@@ -508,6 +576,20 @@ namespace PracticeProblem
 
         public static int[] TwoSumAnswer(int[] nums, int target)
         {
+            Dictionary<int, int> kvp = new Dictionary<int, int>();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                int complement = target - nums[i];
+
+                if (kvp.ContainsKey(complement))
+                {
+                    return new int[] { kvp[complement], i };
+                }
+
+                if (!kvp.ContainsKey(nums[i])) kvp.Add(nums[i], i);
+            }
+
             return Array.Empty<int>();
         }
 
@@ -540,22 +622,23 @@ namespace PracticeProblem
 
         public static bool IsPalindromeAnswer(string s)
         {
-            int left = 0;
-            int right = s.Length - 1;
+            //int left = 0;
+            //int right = s.Length - 1;
 
-            while (left < right)
-            {
-                while (left < right && !char.IsLetterOrDigit(s[left]))
-                    left++;
-                while (left < right && !char.IsLetterOrDigit(s[right]))
-                    right--;
+            //while (left < right)
+            //{
+            //    while (left < right && !char.IsLetterOrDigit(s[left]))
+            //        left++;
 
-                if (char.ToLower(s[left]) != char.ToLower(s[right]))
-                    return false;
+            //    while (left < right && !char.IsLetterOrDigit(s[right]))
+            //        right--;
 
-                left++;
-                right--;
-            }
+            //    if (char.ToLower(s[left]) != char.ToLower(s[right]))
+            //        return false;
+
+            //    left++;
+            //    right--;
+            //}
 
             return true;
         }
@@ -647,7 +730,23 @@ namespace PracticeProblem
 
         public static int MaxSubarraySumAnswer(int[] nums, int k)
         {
-            return 1;
+            int left = 0;
+            int windowSum = 0;
+            int MaxSum = int.MinValue;
+
+            for (int right = 0; right < nums.Length; right++)
+            {
+                windowSum += nums[right];
+
+                if(right - left + 1 == k)
+                {
+                    MaxSum = Math.Max(windowSum, MaxSum);
+                    windowSum -= nums[left];
+                    left++;
+                }
+            }
+
+            return MaxSum;
         }
 
         #endregion
@@ -690,7 +789,6 @@ namespace PracticeProblem
                 }
 
                 set.Add(s[right]);
-
                 maxLength = Math.Max(maxLength, right - left + 1);
             }
 
@@ -760,8 +858,8 @@ namespace PracticeProblem
 
                 if (arr[mid])
                 {
-                    boundryIndex = mid;
                     right = mid - 1;
+                    boundryIndex = mid;
                 }
                 else
                 {
@@ -967,37 +1065,32 @@ namespace PracticeProblem
         {
             int originalColor = image[sr][sc];
 
-            if (originalColor == color)
-                return image;
-
-            Queue<(int, int)> queue = new Queue<(int, int)>();
-            queue.Enqueue((sr, sc));
+            if (originalColor == color) return image;
 
             int rows = image.Length;
             int cols = image[0].Length;
 
-            int[] rowOffset = { -1, 1, 0, 0 };
-            int[] colOffset = { 0, 0, -1, 1 };
+            Queue<(int, int)> cellsToVisit = new Queue<(int, int)>();
+            cellsToVisit.Enqueue((sr, sc));
+          
+            int[] offsetX = { -1, 1, 0, 0 };
+            int[] offsetY = { 0, 0, -1, 1 };
 
-            while (queue.Count > 0)
+            while (cellsToVisit.Count > 0)
             {
-                var (row, col) = queue.Dequeue();
+                var (row, col) = cellsToVisit.Dequeue();
                 image[row][col] = color;
 
                 for (int i = 0; i < 4; i++)
                 {
-                    int goRow = row + rowOffset[i];
-                    int goCol = col + colOffset[i];
+                    int goToRow = row + offsetX[i];
+                    int goToCol = col + offsetY[i];
 
-                    if (goRow >= 0 &&
-                        goCol >= 0 &&
-                        goRow < rows &&
-                        goCol < cols
-                        && image[goRow][goCol] == originalColor)
+                    if (rows > goToRow && cols > goToCol && goToRow >= 0 && goToCol >= 0 && image[goToRow][goToCol] == originalColor)
                     {
-                        queue.Enqueue((goRow, goCol));
-                        image[goRow][goCol] = color;
+                        cellsToVisit.Enqueue((goToRow, goToCol));
                     }
+
                 }
             }
 
@@ -1037,26 +1130,23 @@ namespace PracticeProblem
 
         static void GraphBFSAnswer(Dictionary<int, List<int>> graph, int start)
         {
-            HashSet<int> nodeVisited = new HashSet<int>();
+            HashSet<int> visited = new HashSet<int>();
             Queue<int> queue = new Queue<int>();
             queue.Enqueue(start);
-            nodeVisited.Add(start);
+            visited.Add(start);
 
             while (queue.Count > 0)
             {
                 int node = queue.Dequeue();
-
                 Console.Write(node + " ");
-
-                foreach (var children in graph[node])
+                foreach (var neighbor in graph[node])
                 {
-                    if (!nodeVisited.Contains(children))
-                    {
-                        nodeVisited.Add(children);
-                        queue.Enqueue(children);
-                    }
-                }
+                    if (visited.Contains(neighbor))
+                        continue;
 
+                    queue.Enqueue(neighbor);
+                    visited.Add(neighbor);
+                }
             }
         }
         #endregion
@@ -1089,10 +1179,272 @@ namespace PracticeProblem
 
             TreeNode left = TreeDFSAnswer(root.left, target);
 
-            if(left != null)
+            if (left != null)
                 return left;
 
-            return TreeDFSAnswer(root.right, target); 
+            return TreeDFSAnswer(root.right, target);
+        }
+
+        static void GraphDFS(int root, HashSet<int> visited, Dictionary<int, List<int>> graph)
+        {
+            if (!graph.ContainsKey(root))
+                return;
+
+            visited.Add(root);
+
+            foreach (int neighbor in graph[root])
+            {
+                if (visited.Contains(neighbor))
+                    continue;
+
+                GraphDFS(neighbor, visited, graph);
+            }
+        }
+
+        static void GraphDFSAnswer(int root, HashSet<int> visited, Dictionary<int, List<int>> graph)
+        {
+            if (!graph.ContainsKey(root)) return;
+
+            visited.Add(root);
+
+            foreach (var neighbor in graph[root])
+            {
+                if (visited.Contains(neighbor))
+                    continue;
+
+                GraphDFSAnswer(neighbor, visited, graph);
+            }
+        }
+
+        #region MAXIMUM DEPTH OF A BINARY TREE
+        public static int MaxDepth(TreeNode root)
+        {
+            if (root == null)
+                return 0;
+
+            int leftDepth = MaxDepth(root.left);
+            int rightDepth = MaxDepth(root.right);
+
+            return Math.Max(leftDepth, rightDepth) + 1;
+        }
+
+        public static int MaxDepthAnswer(TreeNode root)
+        {
+            if (root == null)
+                return 0;
+
+            int left = MaxDepthAnswer(root.left);
+            int right = MaxDepthAnswer(root.right);
+
+            return Math.Max(left, right) + 1;
+        }
+
+        #endregion
+        #region NUMBER OF ISLANDS
+        public static int NumIslands(char[][] grid)
+        {
+            if (grid == null || grid.Length == 0)
+                return 0;
+
+            int rows = grid.Length;
+            int cols = grid[0].Length;
+            int count = 0;
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    if (grid[i][j] == '1')
+                    {
+                        count++;
+                        DFS(grid, i, j, rows, cols);
+                    }
+                }
+            }
+
+            return count;
+        }
+        private static void DFS(char[][] grid, int i, int j, int rows, int cols)
+        {
+            if (i < 0 || i >= rows || j < 0 || j >= cols || grid[i][j] == '0')
+                return;
+
+            grid[i][j] = '0'; // mark visited
+
+            DFS(grid, i - 1, j, rows, cols); // up
+            DFS(grid, i + 1, j, rows, cols); // down
+            DFS(grid, i, j - 1, rows, cols); // left
+            DFS(grid, i, j + 1, rows, cols); // right
+        }
+
+        public static int NumIslandsAnswer(char[][] grid)
+        {
+            if (grid == null || grid.Length == 0)
+                return 0;
+
+            int rows = grid.Length;
+            int cols = grid[0].Length;
+            int count = 0;
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    if (grid[i][j] == '1')
+                    {
+                        count++;
+                        DFSAnswer(grid, i, j, rows, cols);
+                    }
+                }
+            }
+
+            return count;
+        }
+        private static void DFSAnswer(char[][] grid, int i, int j, int rows, int cols)
+        {
+            if (i < 0 || j < 0 || i >= rows || j >= cols || grid[i][j] == '0')
+                return;
+
+            grid[i][j] = '0';
+
+            DFSAnswer(grid, i - 1, j, rows, cols);
+            DFSAnswer(grid, i + 1, j, rows, cols);
+            DFSAnswer(grid, i, j - 1, rows, cols);
+            DFSAnswer(grid, i, j + 1, rows, cols);
+        }
+        #endregion
+        #endregion
+
+        #region BACKTRACKING
+        #region WORD SEARCH
+        public static bool Exist(char[][] board, string word)
+        {
+            int rows = board.Length;
+            int cols = board[0].Length;
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    if (WordSearchDFS(board, word, i, j, 0))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool WordSearchDFS(char[][] board, string word, int r, int c, int index)
+        {
+            // If all characters are matched
+            if (index == word.Length)
+                return true;
+
+            // Out of bounds or mismatch
+            if (r < 0 || r >= board.Length ||
+                c < 0 || c >= board[0].Length ||
+                board[r][c] != word[index])
+                return false;
+
+            // Mark visited
+            char temp = board[r][c];
+            board[r][c] = '#';
+
+            // Explore 4 directions
+            bool found =
+                WordSearchDFS(board, word, r + 1, c, index + 1) ||
+                WordSearchDFS(board, word, r - 1, c, index + 1) ||
+                WordSearchDFS(board, word, r, c + 1, index + 1) ||
+                WordSearchDFS(board, word, r, c - 1, index + 1);
+
+            // Backtrack (restore)
+            board[r][c] = temp;
+
+            return found;
+        }
+
+        public static bool ExistAnswer(char[][] board, string word)
+        {
+            int rows = board.Length;
+            int cols = board[0].Length;
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    if (WordDFS(board, word, i, j, 0))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool WordDFS(char[][] board, string word, int row, int col, int index)
+        {
+            if (word.Length == index) return true;
+
+            if (row >= board.Length  ||
+                col >=  board[0].Length  || 
+                row < 0 || 
+                col < 0 ||
+                board[row][col] != word[index])
+                    return false;
+
+            char temp = board[row][col];
+            board[row][col] = '#';
+
+            bool found = WordDFS(board, word, row - 1, col, index + 1) ||
+                         WordDFS(board, word, row + 1, col, index + 1) ||
+                         WordDFS(board, word, row, col - 1, index + 1) ||
+                         WordDFS(board, word, row, col + 1, index + 1);
+
+            board[row][col] = temp;
+
+            return found;
+        }
+        #endregion
+        #endregion
+
+        #region PRIORITY QUEUE
+        public static int[][] KClosest(int[][] points, int k)
+        {
+            // Custom comparer for max heap
+            var comparer = Comparer<(int dist, int id, int[] point)>.Create(
+                (a, b) =>
+                {
+                    // Descending by distance (max heap)
+                    int cmp = b.dist.CompareTo(a.dist);
+
+                    if (cmp != 0)
+                        return cmp;
+
+                    // Tie breaker (avoid duplicates issue)
+                    return a.id.CompareTo(b.id);
+                });
+
+            SortedSet<(int dist, int id, int[] point)> heap =
+                new SortedSet<(int, int, int[])>(comparer);
+
+            int id = 0;
+
+            foreach (var p in points)
+            {
+                int dist = p[0] * p[0] + p[1] * p[1];
+
+                heap.Add((dist, id++, p));
+
+                if (heap.Count > k)
+                    heap.Remove(heap.Min); // remove farthest
+            }
+
+            int[][] result = new int[k][];
+            int i = 0;
+
+            foreach (var item in heap)
+                result[i++] = item.point;
+
+            return result;
         }
 
         #endregion

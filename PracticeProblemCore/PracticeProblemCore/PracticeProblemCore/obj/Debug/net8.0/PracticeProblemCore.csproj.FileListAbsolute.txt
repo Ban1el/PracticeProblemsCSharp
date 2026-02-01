@@ -1,0 +1,15 @@
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\bin\Debug\net8.0\PracticeProblemCore.exe
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\bin\Debug\net8.0\PracticeProblemCore.deps.json
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\bin\Debug\net8.0\PracticeProblemCore.runtimeconfig.json
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\bin\Debug\net8.0\PracticeProblemCore.dll
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\bin\Debug\net8.0\PracticeProblemCore.pdb
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\obj\Debug\net8.0\PracticeProblemCore.GeneratedMSBuildEditorConfig.editorconfig
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\obj\Debug\net8.0\PracticeProblemCore.AssemblyInfoInputs.cache
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\obj\Debug\net8.0\PracticeProblemCore.AssemblyInfo.cs
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\obj\Debug\net8.0\PracticeProblemCore.csproj.CoreCompileInputs.cache
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\obj\Debug\net8.0\PracticeProblemCore.sourcelink.json
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\obj\Debug\net8.0\PracticeProblemCore.dll
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\obj\Debug\net8.0\refint\PracticeProblemCore.dll
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\obj\Debug\net8.0\PracticeProblemCore.pdb
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\obj\Debug\net8.0\PracticeProblemCore.genruntimeconfig.cache
+E:\ASP.NET\PracticeProblemsCSharp\PracticeProblemCore\PracticeProblemCore\PracticeProblemCore\obj\Debug\net8.0\ref\PracticeProblemCore.dll
